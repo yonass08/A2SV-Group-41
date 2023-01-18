@@ -1,58 +1,35 @@
 class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
-        left_border = 0
-        top_border = 0
-        right_border = len(matrix[0]) - 1
-        bottom_border = len(matrix) - 1
-
-        row, col = 0, 0
         res = []
-        x_dirn = 1
-        y_dirn = 0
 
-        for _ in range(len(matrix) * len(matrix[0])):
-            res.append(matrix[row][col])
+        start_row = 0
+        start_col = 0
 
-            col += x_dirn
-            row += y_dirn
+        end_row = len(matrix)-1
+        end_col = len(matrix[0])-1
 
-            # going of the right border
-            if col > right_border:
-                y_dirn = 1
-                x_dirn = 0
-                col -= 1
-                row += 1
-                top_border += 1
-            
-            # going of the bottom border
-            elif row > bottom_border:
-                y_dirn = 0
-                x_dirn = -1
-                row -= 1
-                col -= 1
-                right_border -= 1
+        total_size = len(matrix) * len(matrix[0])
 
-            # going of the left border
-            elif col < left_border:
-                y_dirn = -1
-                x_dirn = 0
-                row -= 1
-                col += 1
-                bottom_border -= 1
+        while len(res) < total_size:
+            for col in range(start_col, end_col+1):
+                res.append(matrix[start_row][col])
+            start_row += 1
 
-            # going of the top border
-            elif row < top_border:
-                y_dirn = 0
-                x_dirn = 1
-                row += 1
-                col += 1
-                left_border += 1
+            for row in range(start_row, end_row+1):
+                res.append(matrix[row][end_col])
+            end_col -= 1
+
+            if len(res) == total_size:
+                break
+
+            for col in range(end_col, start_col-1, -1):
+                res.append(matrix[end_row][col])
+            end_row -= 1
+
+            for row in range(end_row, start_row-1, -1):
+                res.append(matrix[row][start_col])
+            start_col += 1
 
         return res
 
-
-
-
-
-
-
+             
