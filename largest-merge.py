@@ -1,20 +1,17 @@
 class Solution:
     def largestMerge(self, word1: str, word2: str) -> str:
-
-        first = 0
-        second = 0
         res = []
 
-        while first < len(word1) and second < len(word2):
-            if word1[first:] > word2[second:]:
-                res.append(word1[first])
-                first += 1
+        while word1 and word2:
+            if word1 > word2:
+                res.append(word1[0])
+                word1 = word1[1:]
             else:
-                res.append(word2[second])
-                second += 1
+                res.append(word2[0])
+                word2 = word2[1:]
 
-        res.extend(word1[first:])
-        res.extend(word2[second:])
+        res.extend(word1)
+        res.extend(word2)
 
         return ''.join(res)
             
